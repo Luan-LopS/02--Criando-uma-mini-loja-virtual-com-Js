@@ -1,0 +1,25 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#produtos{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr ;
+    gap: 6rem;
+}
+
+
+.produtos-single{
+    background-color: aquamarine;
+    padding: 10px;
+}
+
+
+#carrinho{
+    background-color: bisque;
+    margin: auto;
+    width: 60%;
+    height: 200px;
+}
