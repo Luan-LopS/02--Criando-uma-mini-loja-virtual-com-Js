@@ -1,68 +1,78 @@
-/*const items = [{
-    id: 0,
-    nome: 'camiseta',
-    img: 'https://images.tcdn.com.br/img/img_prod/275189/camisa_azul_royal_100_poliester_para_sublimacao_m_2701_1_20200722153204.jpg',
-    quantidade: 0,
-}, {
-    id: 1,
-    nome: 'calsa',
-    img: 'https://images.tcdn.com.br/img/img_prod/275189/camisa_azul_royal_100_poliester_para_sublimacao_m_2701_1_20200722153204.jpg',
-    quantidade: 0,
-}, {
-    id: 2,
-    nome: 'tenis',
-    img: 'https://images.tcdn.com.br/img/img_prod/275189/camisa_azul_royal_100_poliester_para_sublimacao_m_2701_1_20200722153204.jpg',
-    quantidade: 0,
-}]*/
-//item de teste
+
+// Set a cookie with SameSite attribute
+var items = {}
+const carrinho = document.getElementById("carrinho")
 
 
 //criação da loja
 startShop = (items) => {
-    console.log(items)
     var containerProdutos = document.getElementById("produtos")
     items.map((val) => {
         containerProdutos.innerHTML += `
         <div class"produtos-single">
         <img src="${val.image}" width="100px">
         <p>${val.title}</P>
-        <p>$ ${val.price}</p>
-        <a key="${val.id}" href="#">adicionar ao carrinho!</a>
+        <p>R$ ${val.price.toFixed(2)}</p>
+        <button key="${val.id}" onclick="addProdutc(this)">adicionar ao carrinho!</button>
         </div>        
         `
     })
 }
 
-async function getApi() {
-    const items = await fetch('https://fakestoreapi.com/products')
-    .then(res => res.json())
-    startShop(items)
-    updateCart(items)
+//adiciona items no carrinho
+function addProdutc(button) {
+    let key = button.getAttribute("key")
+    if (!items[key]) {
+        items[key] = { quantity }
+    } else {
+        items[key].quantity = isNaN(items[key].quantity) ? 1 : items[key].quantity + 1;
+    }
+    updateCart()
 }
 
-getApi()
+//display carrinho
+let conteinerCarrinho = document.getElementById('conteinerCarrinho')
+conteinerCarrinho.addEventListener('click', () => {
+    if(carrinho.style.display===''){
+        carrinho.style.display='block'
+    }else if(carrinho.style.display==='block'){
+        carrinho.style.display=''
+    }
+})
 
-updateCart = (items) => {
-    var containerCarrinho = document.getElementById("carrinho")
-    containerCarrinho.innerHTML = ""
+//consomi a APi
+async function getApi() {
+    const dados = await fetch('https://fakestoreapi.com/products')
+    items = await dados.json()
+    startShop(items)
+}
+
+// calcula valor de item por produto especifico
+/*function TotalUnidade(){
+    items.map((val)=>{
+        if(val.){
+
+        }
+    })
+}*/
+
+//Cria o carrinho
+updateCart = () => {
+    carrinho.innerText = " "
     items.map((val) => {
-        if (val.quantidade === 0 || val.quantidade<0) {
-           let quantidade = 
-            containerCarrinho.innerHTML += `
-            <p>${val.title}| quantidade: ${val.quantidade}</P>
+        if (val.quantity > 0) {
+            carrinho.innerHTML += `
+            <p>${val.title} quantidade: ${val.quantity}</P>
+            <p></p>
             <hr>
             `
         }
     })
 }
 
-var links = document.getElementsByTagName("a")
 
-for (var i = 0; i < links.length; i++) {
-    links[i].addEventListener("click", function () {
-        let key = this.getAttribute("key")
-        items[key].quantidade++
-        updateCart()
-        return false
-    })
-}
+
+
+
+getApi()
+

@@ -5,27 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/6f9ded4e50.js" crossorigin="anonymous"></script>
+
     <title>Loja Virtual</title>
 </head>
 
 <body>
-    <nav>
+
+    <nav id="nav-bar">
         Logo
         <form action="" method="post">
             <input id="search" type="text" name="search" placeholder="O que procura? " required>
-            <button type="submit"></button>
+            <button type="submit"> <i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
+        <i class="fa-solid fa-cart-shopping" id="conteinerCarrinho">
+            <div id="carrinho">
+
+            </div>
+        </i>
     </nav>
+
+
+
 
     <h1>Mini Loja Virtual</h1>
 
     <div id="produtos">
 
     </div>
-
-    <div id="carrinho">
-    </div>
-
+   
 
     <script src="script.js"></script>
 </body>
